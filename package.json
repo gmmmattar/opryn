@@ -1,0 +1,1 @@
+{"name":"opryn-propertytag-demo","version":"1.0.0","type":"module","private":true,"scripts":{"dev":"node scripts/dev.mjs","build":"node scripts/build.mjs","test":"node --test tests/*.test.mjs","lint":"node scripts/check.mjs","typecheck":"node scripts/check.mjs"}}

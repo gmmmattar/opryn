@@ -1,0 +1,3 @@
+import { DatabaseSync } from 'node:sqlite';
+import { readFileSync,mkdirSync } from 'node:fs';
+export function localDb(path){mkdirSync('.local',{recursive:true});const db=new DatabaseSync(path);for(const sql of readFileSync('drizzle/0000_propertytag.sql','utf8').split('--> statement-breakpoint')){try{db.exec(sql);}catch(e){if(!e.message.includes('already exists'))throw e;}}return {prepare(sql){const stmt=db.prepare(sql);let args=[];const q={bind(...a){args=a;return q;},async first(){return stmt.get(...args)||null;},async run(){const r=stmt.run(...args);return {meta:{changes:Number(r.changes)}};}};return q;},close(){db.close();}};}
